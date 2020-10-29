@@ -1,0 +1,25 @@
+module.exports = {
+  pluginOptions: {
+    s3Deploy: {
+      registry: undefined,
+      awsProfile: 'default',
+      overrideEndpoint: false,
+      region: 'us-east-1',
+      bucket: 'instaorganize-test',
+      createBucket: true,
+      staticHosting: true,
+      staticIndexPage: 'index.html',
+      staticErrorPage: 'error.html',
+      assetPath: 'dist',
+      assetMatch: '**',
+      deployPath: '/',
+      acl: 'public-read',
+      pwa: false,
+      enableCloudfront: true,
+      cloudfrontId: 'E1XFB8KP283THA',
+      cloudfrontMatchers: '/index.html,/service-worker.js,/manifest.json',
+      pluginVersion: '4.0.0-rc3',
+      uploadConcurrency: 5,
+    },
+  },
+};
