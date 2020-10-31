@@ -4,41 +4,43 @@
       <h2>{{ boardTitle }}</h2>
       <hr />
     </div>
-    <div class="row p-3">
-
-      <div class="col-2" v-for="(group) in groups" :key="group.id">
-        <h5>{{group.title}}</h5>
-        <draggable
-          class="list-group border p-1"
-          :list="group.tasks"
-          group="tasks"
-          @change="log">
-          <div
-            class="list-group-item task"
-            v-for="(element) in group.tasks"
-            :key="element.id">
-            <!-- <div class="task-name col-12">{{ element.name }}</div> -->
-            <div class="task-name col-12"><input type="input" v-model="element.name"
-              class="form-control task-input" /></div>
-            <div class="task-name col-12"><span>
-              {{ element.comments }} <b-icon-chat-right-text></b-icon-chat-right-text>
-            </span>
-            <span class="ml-2" v-if="element.description">
-            <b-icon-justify-left></b-icon-justify-left></span></div>
+      <draggable
+          :list="groups"
+          class="row p-3"
+          group="groups">
+        <div class="col-2" v-for="(group) in groups" :key="group.id">
+          <h5>{{group.title}}</h5>
+          <draggable
+            class="list-group border p-1"
+            :list="group.tasks"
+            group="tasks"
+            @change="log">
+            <div
+              class="list-group-item task"
+              v-for="(element) in group.tasks"
+              :key="element.id">
+              <!-- <div class="task-name col-12">{{ element.name }}</div> -->
+              <div class="task-name col-12"><input type="input" v-model="element.name"
+                class="form-control task-input" /></div>
+              <div class="task-name col-12"><span>
+                {{ element.comments }} <b-icon-chat-right-text></b-icon-chat-right-text>
+              </span>
+              <span class="ml-2" v-if="element.description">
+              <b-icon-justify-left></b-icon-justify-left></span></div>
+            </div>
+            <div
+              slot="footer"
+              class="btn-group list-group-item"
+              role="group"
+              aria-label="Basic example"
+              key="footer">
+            <button v-on:click="newTask(group)" class="btn btn-outline-success
+            btn-sm btn-rounded float-right">
+            <b-icon-plus></b-icon-plus>New Task</button>
           </div>
-          <div
-            slot="footer"
-            class="btn-group list-group-item"
-            role="group"
-            aria-label="Basic example"
-            key="footer">
-          <button v-on:click="newTask(group)" class="btn btn-outline-success
-          btn-sm btn-rounded float-right">
-          <b-icon-plus></b-icon-plus>New Task</button>
+          </draggable>
         </div>
-        </draggable>
-      </div>
-    </div>
+      </draggable>
   </div>
 </template>
 
