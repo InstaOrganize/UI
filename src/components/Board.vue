@@ -1,54 +1,25 @@
 <template>
-  <div class="">
-    <div class="pl-3 pt-3">
-      <h2>Demo Board</h2>
+  <div class="board">
+    <div class="pl-3 pt-3 board-title">
+      <h2>{{ boardTitle }}</h2>
       <hr />
     </div>
     <div class="row p-3">
-      <div class="col-2">
-        <h5>Todo</h5>
-        <draggable
-          class="list-group border p-1"
-          :list="list1"
-          group="people"
-          @change="log"
-        >
-          <div
-            class="list-group-item task"
-            v-for="(element) in list1"
-            :key="element.name">
-            <div class="task-name col-12">{{ element.name }}</div>
-            <div class="task-name col-12"><span>
-              {{ element.comments }} <b-icon-chat-right-text></b-icon-chat-right-text>
-            </span>
-            <span class="ml-2" v-if="element.description">
-            <b-icon-justify-left></b-icon-justify-left></span></div>
-          </div>
-          <div
-            slot="footer"
-            class="btn-group list-group-item"
-            role="group"
-            aria-label="Basic example"
-            key="footer"
-          >
-          <button class="btn btn-secondary btn-sm float-right">
-          <b-icon-plus></b-icon-plus>Add Task</button>
-        </div>
-        </draggable>
-      </div>
 
-      <div class="col-2">
-        <h5>In Progress</h5>
+      <div class="col-2" v-for="(group) in groups" :key="group.id">
+        <h5>{{group.title}}</h5>
         <draggable
           class="list-group border p-1"
-          :list="list2"
-          group="people"
+          :list="group.tasks"
+          group="tasks"
           @change="log">
           <div
-            class="list-group-item task align-items-start"
-            v-for="(element) in list2"
-            :key="element.name">
-            <div class="task-name col-12">{{ element.name }}</div>
+            class="list-group-item task"
+            v-for="(element) in group.tasks"
+            :key="element.id">
+            <!-- <div class="task-name col-12">{{ element.name }}</div> -->
+            <div class="task-name col-12"><input type="input" v-model="element.name"
+              class="form-control task-input" /></div>
             <div class="task-name col-12"><span>
               {{ element.comments }} <b-icon-chat-right-text></b-icon-chat-right-text>
             </span>
@@ -60,10 +31,10 @@
             class="btn-group list-group-item"
             role="group"
             aria-label="Basic example"
-            key="footer"
-          >
-          <button class="btn btn-secondary btn-sm float-right">
-          <b-icon-plus></b-icon-plus>Add Task</button>
+            key="footer">
+          <button v-on:click="newTask(group)" class="btn btn-outline-success
+          btn-sm btn-rounded float-right">
+          <b-icon-plus></b-icon-plus>New Task</button>
         </div>
         </draggable>
       </div>
@@ -81,44 +52,63 @@ import draggable from 'vuedraggable';
   },
 })
 export default class Board extends Vue {
-  list1 = [
+  groups = [
     {
-      id: 1,
-      name: 'Design Web Page',
-      comments: 3,
-      description: false,
+      id: '1',
+      title: 'Todo',
+      tasks: [
+        {
+          id: 4,
+          name: 'Design Web Page',
+          comments: 3,
+          description: false,
+        },
+        {
+          id: 5,
+          name: 'Start Coding',
+          comments: 0,
+          description: true,
+        },
+        {
+          id: 6,
+          name: 'New Design Work',
+          comments: 1,
+          description: true,
+        },
+      ],
     },
     {
-      id: 2,
-      name: 'Start Coding',
-      comments: 0,
-      description: true,
-    },
-    {
-      id: 3,
-      name: 'New Design Work',
-      comments: 1,
-      description: true,
+      id: '2',
+      title: 'In Progress',
+      tasks: [
+        {
+          id: 1,
+          name: 'Design Web Page',
+          comments: 3,
+          description: false,
+        },
+        {
+          id: 2,
+          name: 'Start Coding',
+          comments: 0,
+          description: true,
+        },
+        {
+          id: 3,
+          name: 'New Design Work',
+          comments: 1,
+          description: true,
+        },
+      ],
     },
   ];
 
-  list2 = [
-    {
-      id: 7,
-      name: 'Determine Requirements',
-      comments: 5,
-    },
-    {
-      id: 8,
-      name: 'Meet With Stakeholders',
-      comments: 3,
-    },
-    {
-      id: 9,
-      name: 'Lorem Ipsum',
-      comments: 2,
-    },
-  ];
+  boardTitle = 'Demo Board';
+
+  newTask = (taskGroup: any) => {
+    const newTaskId = Math.random();
+    taskGroup.tasks.push({ id: newTaskId, name: `New Task: ${newTaskId}`, comments: 0 });
+  };
 
   log = () => {
     console.log('Moved');
@@ -132,6 +122,19 @@ export default class Board extends Vue {
    cursor: grab;
  }
  .task-name {
-   font-size: 12px;
+    font-size: 12px;
+ }
+ .task-input {
+    padding: 0px;
+    font-size: 12px;
+    border: 0px;
+    cursor: pointer;
+ }
+ .task-input:focus {
+    padding: 0px;
+    font-size: 12px;
+    border: 0px;
+    border-color: #000;
+    cursor:text;
  }
 </style>

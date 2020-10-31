@@ -1,6 +1,10 @@
+
+$primary: #555555;
+$secondary: #d9e4dd;
+$success: #009933;
+$body-bg: $secondary;
+
+
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../node_modules/bootstrap-vue/src/index.scss';
 
-body {
-  background:  #f2f2f2;
-}
