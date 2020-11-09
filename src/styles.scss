@@ -8,3 +8,16 @@ $body-bg: $secondary;
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../node_modules/bootstrap-vue/src/index.scss';
 
+.horizontal-scrollable > .row { 
+  overflow-x: auto;
+  white-space: nowrap;
+} 
+
+.horizontal-scrollable > .row > .col-4 .col-xs-6 { 
+  display: inline-block; 
+} 
+
+.group-title {
+  cursor: all-scroll;
+  border: 6px solid #FFF;
+}

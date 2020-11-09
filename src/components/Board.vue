@@ -4,43 +4,45 @@
       <h2>{{ boardTitle }}</h2>
       <hr />
     </div>
-      <draggable
-          :list="groups"
-          class="row p-3"
-          group="groups">
-        <div class="col-2" v-for="(group) in groups" :key="group.id">
-          <h5>{{group.title}}</h5>
-          <draggable
-            class="list-group border p-1"
-            :list="group.tasks"
-            group="tasks"
-            @change="log">
-            <div
-              class="list-group-item task"
-              v-for="(element) in group.tasks"
-              :key="element.id">
-              <!-- <div class="task-name col-12">{{ element.name }}</div> -->
-              <div class="task-name col-12"><input type="input" v-model="element.name"
-                class="form-control task-input" /></div>
-              <div class="task-name col-12"><span>
-                {{ element.comments }} <b-icon-chat-right-text></b-icon-chat-right-text>
-              </span>
-              <span class="ml-2" v-if="element.description">
-              <b-icon-justify-left></b-icon-justify-left></span></div>
+    <div class="container-fluid horizontal-scrollable">
+        <draggable
+            :list="groups"
+            class="row p-3 flex-nowrap"
+            group="groups">
+          <div class="col-12 col-md-6 col-lg-3 col-xl-2" v-for="(group) in groups" :key="group.id">
+            <h5 class="group-title bg-primary text-light p-2">{{group.title}}</h5>
+            <draggable
+              class="list-group border p-1"
+              :list="group.tasks"
+              group="tasks"
+              @change="log">
+              <div
+                class="list-group-item task"
+                v-for="(element) in group.tasks"
+                :key="element.id">
+                <!-- <div class="task-name col-12">{{ element.name }}</div> -->
+                <div class="task-name col-12"><input type="input" v-model="element.name"
+                  class="form-control task-input" /></div>
+                <div class="task-name col-12"><span>
+                  {{ element.comments }} <b-icon-chat-right-text></b-icon-chat-right-text>
+                </span>
+                <span class="ml-2" v-if="element.description">
+                <b-icon-justify-left></b-icon-justify-left></span></div>
+              </div>
+              <div
+                slot="footer"
+                class="btn-group list-group-item"
+                role="group"
+                aria-label="Basic example"
+                key="footer">
+              <button v-on:click="newTask(group)" class="btn btn-outline-success
+              btn-sm btn-rounded float-right">
+              <b-icon-plus></b-icon-plus>New Task</button>
             </div>
-            <div
-              slot="footer"
-              class="btn-group list-group-item"
-              role="group"
-              aria-label="Basic example"
-              key="footer">
-            <button v-on:click="newTask(group)" class="btn btn-outline-success
-            btn-sm btn-rounded float-right">
-            <b-icon-plus></b-icon-plus>New Task</button>
+            </draggable>
           </div>
-          </draggable>
-        </div>
-      </draggable>
+        </draggable>
+      </div>
   </div>
 </template>
 
@@ -97,6 +99,54 @@ export default class Board extends Vue {
         },
         {
           id: 3,
+          name: 'New Design Work',
+          comments: 1,
+          description: true,
+        },
+      ],
+    },
+    {
+      id: '2',
+      title: 'In Progress',
+      tasks: [
+        {
+          id: 3444,
+          name: 'Design Web Page',
+          comments: 3,
+          description: false,
+        },
+        {
+          id: 345,
+          name: 'Start Coding',
+          comments: 0,
+          description: true,
+        },
+        {
+          id: 543,
+          name: 'New Design Work',
+          comments: 1,
+          description: true,
+        },
+      ],
+    },
+    {
+      id: '2',
+      title: 'In Progress',
+      tasks: [
+        {
+          id: 143,
+          name: 'Design Web Page',
+          comments: 3,
+          description: false,
+        },
+        {
+          id: 662,
+          name: 'Start Coding',
+          comments: 0,
+          description: true,
+        },
+        {
+          id: 3556,
           name: 'New Design Work',
           comments: 1,
           description: true,
